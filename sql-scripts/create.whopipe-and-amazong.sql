@@ -17,7 +17,7 @@ CREATE TYPE department AS ENUM (
   'Sports',
   'Homeware',
   'Games',
-  'Transport',
+  'Transport'
 );
 
 CREATE TABLE IF NOT EXISTS amazong_products (
