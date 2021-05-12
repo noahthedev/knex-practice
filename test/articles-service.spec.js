@@ -36,10 +36,24 @@ describe(`Articles service object`, function() {
   after(() => db.destroy())
 
   context(`Given 'blogful_articles' has data`, () => {
-    before(() => {
+    beforeEach(() => {
       return db
         .into('blogful_articles')
         .insert(testArticles)
+    })
+
+    it(`getById() resolves an article by id from 'blogful_articles' table`, () => {
+      const thirdId = 3
+      const thirdTestArticle = testArticles[thirdId - 1]
+      return ArticlesService.getById(db, thirdId)
+        .then(actual => {
+          expect(actual).to.eql({
+            id: thirdId,
+            title: thirdTestArticle.title,
+            content: thirdTestArticle.content,
+            date_published: thirdTestArticle.date_published,
+          })
+        })
     })
 
     it(`getAllArticles() resolves all articles from 'blogful_articles' table`, () => {
